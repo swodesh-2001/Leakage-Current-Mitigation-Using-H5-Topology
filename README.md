@@ -1,29 +1,4 @@
-<div align="center">
-  
 # DEVELOPMENT OF NEW CONTROL STRATEGY IN TRANSFORMER-LESS GRID CONNECTED PV INVERTER TO REDUCE LEAKAGE CURRENT
-
-**Presented by:**
- **Rachana Subedi** (076BEL033)  
- **Shashwot Shrestha** (076BEL043)  
- **Sushil Phuyal** (076BEL047)  
- **Swodesh Sharma** (076BEL048)  
-
-**Project Supervisor:**
-**Prof. Dr. Indraman Tamrakar**
-
-**Tribhuwan University**  
-**Institute of Engineering**  
-**Pulchowk Campus**  
-
-**Department of Electrical Engineering**  
-**Lalitpur, Nepal**  
-
-**Final Presentation on Final Year Project-II**  
-**March 2024**
-
-</div>
-
----
 
 ## Table of Contents
 
