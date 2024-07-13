@@ -97,7 +97,7 @@ This leakage capacitance becomes allows the path for the flow of leakage current
 
 ### H4 Unipolar Modes
 
-```math
+$$
 \begin{array}{|c|c|c|c|c|}
 \hline
 \text{Modes} & V_{AN} & V_{BN} & V_{DM} & V_{CM} \\
@@ -111,11 +111,11 @@ This leakage capacitance becomes allows the path for the flow of leakage current
 4 & 0 & 0 & 0 & 0 \\
 \hline
 \end{array}
-```
+$$
 
 ### H4 Bipolar Modes
 
-```math
+$$  
 \begin{array}{|c|c|c|c|c|}
 \hline
 \text{Modes} & V_{AN} & V_{BN} & V_{DM} & V_{CM} \\
@@ -128,8 +128,8 @@ This leakage capacitance becomes allows the path for the flow of leakage current
 \hline
 4 & V_{dc} & 0 & V_{dc} & \frac{V_{dc}}{2} \\
 \hline
-\end{array}
-```
+\end{array}  
+$$
 
 ---
 
@@ -159,97 +159,144 @@ The unreliability of hardware components available in our country was a great ob
 ![image](https://github.com/user-attachments/assets/375309a2-c718-42e5-b6d8-42470771dbaf)
 ![image](https://github.com/user-attachments/assets/7950771e-6d42-43b8-9698-b7be37e67ac0)
 
-$$ V_{CM} = \frac{V_{AN} + V_{BN}}{2} $$
-In this mode, positive voltage is transferred    
-$ V_{AN} = V_{DC} $ and $ V_{BN} = 0 $    
-$ V_{CM} = \frac{V_{DC}}{2} $
+$$
+V_{CM} = \frac{V_{AN} + V_{BN}}{2}
+$$
+
+In this mode, positive voltage is transferred when:
+
+- $V_{AN} = V_{DC}$
+- $V_{BN} = 0$
+
+Therefore,
+
+$$
+V_{CM} = \frac{V_{DC}}{2}
+$$
+
+
+#### MODE 2 ( Freewheeling )
+![image](https://github.com/user-attachments/assets/edf1255d-be2d-4631-8f2a-b3a2aa29a176)
+
+In this mode
+- DC side is decoupled from Freewheeling side.
+- Lower diode clamps VBN  to VDC/2
+- Magnetic field stored in the inductor collapses through switch S1 and FD D3 
+- Applying KVL we obtain  
+         $V_{CM} = /frac{V_{DC}}{2}$
+
+#### MODE 3 
+![image](https://github.com/user-attachments/assets/b549ef09-61d8-4ce2-8a80-144c1432e505)
+![image](https://github.com/user-attachments/assets/447d4b75-3db7-46f3-aaaa-b5b1e801d44e)
+
+In this mode, negative voltage is transferred when:
+
+- $V_{AN} = 0 /text{and}  V_{BN} = V_{DC}$
+- $V_{CM} = V_{DC} / 2$
+
+#### MODE 4 ( Freewheeling )
+![image](https://github.com/user-attachments/assets/3956a7fe-7c24-4cd7-8d4f-b63619d2c8b2)  
+In this instant
+- DC side is decoupled from Freewheeling side.
+- Upper diode clamps VAN  to VDC/2 
+- Magnetic field stored in the inductor collapses through freewheeling diode D1 and switch S3 
+- Applying KVL we obtain
+     $V_{CM} = /frac{V_{DC}}{2}$
+
+**SO IN ALL MODE CMV IS CONSTANT**  
+![image](https://github.com/user-attachments/assets/6249b45c-c95b-4512-88e1-1d8376da5bfc)
+
+$$  
+\begin{array}{|c|c|c|c|c|}
+\hline
+\text{Modes} & V_{AN} & V_{BN} & V_{DM} & V_{CM} \\
+\hline
+1 & V_{dc} & 0 & V_{dc} & \frac{V_{dc}}{2} \\
+\hline
+2 & \frac{V_{dc}}{2}  & \frac{V_{dc}}{2}  & 0 & \frac{V_{dc}}{2} \\
+\hline
+3 & 0 & V_{dc} & -V_{dc} & \frac{V_{dc}}{2} \\
+\hline
+4 & \frac{V_{dc}}{2}  & \frac{V_{dc}}{2}  & 0 & \frac{V_{dc}}{2} \\
+\hline
+\end{array}  
+$$
 
 ---
 
 ## Methodology
+![image](https://github.com/user-attachments/assets/a0803dde-4257-4e9a-b0f3-b63c0f994194)
 
-### Simulation
+- `MPPT` continuously checks PV current and Voltage to adjust them in order to track the point at which they produce maximum power output.
 
-![Methodology of the proposed system in Matlab](./images/image4.png)
+- The function of `DC-DC boost converter` is to regulate and adjust the output voltage of PV panel in order to match the desired voltage to achieve maximum power output. It is done by adjusting duty cycle given from the output of MPPT block.
 
-**MPPT** continuously checks PV current and voltage to adjust them in order to track the point at which they produce maximum power output.
+- To achieve DC-link voltage regulation and grid synchronization, two control loops, `inner grid current control loop` and `outer DC-link voltage control loop` are used.
 
-The function of the **DC-DC boost converter** is to regulate and adjust the output voltage of the PV panel in order to match the desired voltage to achieve maximum power output. It is done by adjusting the duty cycle given from the output of the MPPT block.
-
-To achieve **DC-link voltage regulation and grid synchronization**, two control loops, the inner grid current control loop, and the outer DC-link voltage control loop are used.
-
----
 
 ### Outer DC-link voltage control loop
 
-This loop is responsible for regulating the DC-link voltage at a constant value. Here the constant value is taken as 400 V.
+- This loop is responsible for regulating the DC-link voltage at a constant value. Here, the constant value is taken as 400 V.
 
-Voltage regulation is achieved by adjusting the reference DC current **Id_ref**, which is obtained by feeding the error signal to a properly tuned **PI controller**. If the DC-link voltage is less, then less current will be injected into the grid and the voltage again rises and vice versa.
+- Voltage regulation is achieved by adjusting the reference DC current Id_ref, which is obtained by feeding error signal to a properly tuned PI controller. If the DC-link voltage is less, then less current will be injected to grid and voltage again rises and vice versa.
 
-**Clarke Transformation** is used to extract the alpha and beta component of reference current. Iq is made equal to zero to make reactive power injection zero.
+![image](https://github.com/user-attachments/assets/95ae70a6-246a-495b-90a2-51cf56881c2d)
 
-The alpha component of current obtained is fed to the **Hysteresis Band Current Controller**, which acts as a reference current to control the inverter output current.
+### Inner grid current control loop
 
-![DC link voltage control](./images/image5.png)  
-![Clarke transformation](./images/image6.png)
+- Clarke Transformation is used to extract alpha and beta component of reference current. Iq is made equal to zero to make reactive power injection zero.
 
----
+- The alpha component of current obtained is fed to Hysteresis Band Current Controller, which acts as reference current to control the inverter output current.
 
-### Hysteresis Band Current Control
+![image](https://github.com/user-attachments/assets/0dcdcd1a-4ea3-4d74-b85a-3299a19c4aac)
 
-It is an instantaneous feedback current control method. Actual current and reference current are compared here. If the actual current magnitude hits the upper band, it is made to return back by decreasing its magnitude and if the actual current hits the lower band, it is made to return back by increasing its magnitude.
+## Simulation
 
-![Hysteresis band current control for gate signal generation](./images/image7.png)
+![image](https://github.com/user-attachments/assets/9f3a32d4-de1c-4002-b06b-e18e4661a74c)
 
----
-
-### Single Phase Locked Loop (PLL)
-
-**Single Phase Locked Loop (PLL)** is used for extracting the frequency and phase angle (wt_grid) of the grid voltage.
-
-![Single phase PLL for wt_grid extraction](./images/image8.png)
-
----
-
-### System Under Consideration (Simulation)
-
-![Complete MATLAB Simulink model](./images/image9.png)
-
----
-
-### SPWM Methodology (Hardware Design)
-
-![Methodology of the Hardware system](./images/image10.png)
-
----
+### SPWM Methodology ( Hardware Design)
+![image](https://github.com/user-attachments/assets/1456324f-9adb-448e-998a-4dd3a89d08a6)
 
 ### Microcontroller-1 Flowchart
 
-![Flowchart of Microcontroller 1 for generating duty signals to Boost Converter](./images/image11.png)
+```mermaid
+flowhcart TD
+    start((START))
+    check[Check Boost Converter<br>Output Voltage (Vout)]
+    decision{Vout > Vset}
+    increase[Increase Duty Cycle<br>Of PWM]
+    decrease[Decrease Duty Cycle<br>Of PWM]
 
----
+    start --> check
+    check --> decision
+    decision -- Yes --> decrease
+    decision -- No --> increase
+    increase --> check
+    decrease --> check
+```
 
 ### Microcontroller-2 Flowchart
+![image](https://github.com/user-attachments/assets/6dfd897a-4db5-40b1-9d1e-d86a836bc10d)
 
-![Flowchart of Microcontroller 2 for generating gate signals](./images/image12.png)
-
----
+## Hardwares Developed
 
 ### Zero Crossing Detector
 
-![Zero Crossing Detector (ZCD)](./images/image13.png)
+![image](https://github.com/user-attachments/assets/38fff6d8-bfd2-4f7b-8481-e92c3ed38499)
+
 
 ---
 
 ### Boost Converter
 
-![Boost Converter and its output](./images/image14.png)
+![image](https://github.com/user-attachments/assets/1492fb52-1d48-489b-bc57-57e50613ba1e)
+
 
 ---
 
 ### Current Sensor
+![image](https://github.com/user-attachments/assets/f1f078ab-51e1-4731-bc4d-82664194b6ce)
 
-![Current Sensor and its working](./images/image15.png)
 
 Due to the limitation of commercially available current sensor ACS712, we designed a current sensor on our own using Current Transformer (ZMCT103C) and amplifier circuit.
 
@@ -257,13 +304,14 @@ Due to the limitation of commercially available current sensor ACS712, we design
 
 ### Inverter Circuit with Driver
 
-![Inverter Circuit and its output voltage in oscilloscope](./images/image16.png)
+![image](https://github.com/user-attachments/assets/197beed5-e06d-4a92-a70a-682391a9cc3a)
+
 
 ---
 
 ### Overall Hardware Implementation in Proteus
 
-![Complete circuit in proteus and its output](./images/image17.png)
+![image](https://github.com/user-attachments/assets/ce2b655b-0cc3-47b5-9d68-395aa3a1cad8)
 
 Proteus Software is used for simulation. The expected result was obtained after the complete simulation.
 
@@ -271,7 +319,8 @@ Proteus Software is used for simulation. The expected result was obtained after 
 
 ### Overall Hardware Circuit
 
-![Final hardware design of the whole system](./images/image18.png)
+![image](https://github.com/user-attachments/assets/7db849df-043c-48c2-9bd1-b88789205010)
+
 
 ---
 
