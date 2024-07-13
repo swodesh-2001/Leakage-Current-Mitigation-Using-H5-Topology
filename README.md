@@ -207,7 +207,11 @@ In this instant
 - Upper diode clamps VAN  to VDC/2 
 - Magnetic field stored in the inductor collapses through freewheeling diode D1 and switch S3 
 - Applying KVL we obtain
-     $V_{CM} = /frac{V_{DC}}{2}$
+
+$$
+V_{CM} = \frac{V_{DC}}{2}
+$$
+
 
 **SO IN ALL MODE CMV IS CONSTANT**  
 ![image](https://github.com/user-attachments/assets/6249b45c-c95b-4512-88e1-1d8376da5bfc)
