@@ -2,17 +2,45 @@
 
 ## Table of Contents
 
-1. [Introduction](#introduction)
-2. [Literature Review](#literature-review)
-3. [Problem Statement](#problem-statement)
-4. [Objectives](#objectives)
-5. [Scope and Limitation](#scope-and-limitation)
-6. [H5 Solution](#h5-solution)
-7. [Methodology](#methodology)
-8. [System Under Consideration](#system-under-consideration)
-9. [Results and Discussion](#results-and-discussion)
-10. [Future Recommendations](#future-recommendations)
-11. [References](#references)
+- [Introduction](#introduction)
+- [Literature Review](#literature-review)
+- [Problem Statement](#problem-statement)
+  - [Problem with H4 Bridge Topology](#problem-with-h4-bridge-topology)
+  - [H4 Unipolar Modes](#h4-unipolar-modes)
+  - [H4 Bipolar Modes](#h4-bipolar-modes)
+- [Objectives](#objectives)
+- [Scope and Limitations](#scope-and-limitations)
+- [H5 Solution](#h5-solution)
+    - [MODE 1](#mode-1)
+    - [MODE 2 ( Freewheeling )](#mode-2--freewheeling-)
+    - [MODE 3](#mode-3)
+    - [MODE 4 ( Freewheeling )](#mode-4--freewheeling-)
+- [Methodology](#methodology)
+  - [Outer DC-link voltage control loop](#outer-dc-link-voltage-control-loop)
+  - [Inner grid current control loop](#inner-grid-current-control-loop)
+- [Simulation](#simulation)
+  - [SPWM Methodology ( Hardware Design)](#spwm-methodology--hardware-design)
+  - [Microcontroller-1 Flowchart](#microcontroller-1-flowchart)
+  - [Microcontroller-2 Flowchart](#microcontroller-2-flowchart)
+- [Hardwares Developed](#hardwares-developed)
+  - [Zero Crossing Detector](#zero-crossing-detector)
+  - [Boost Converter](#boost-converter)
+  - [Current Sensor](#current-sensor)
+  - [Inverter Circuit with Driver](#inverter-circuit-with-driver)
+  - [Overall Hardware Implementation in Proteus](#overall-hardware-implementation-in-proteus)
+  - [Overall Hardware Circuit](#overall-hardware-circuit)
+- [Simulation Results And Discussion](#simulation-results-and-discussion)
+  - [Electrical parameters fed into the grid](#electrical-parameters-fed-into-the-grid)
+  - [Common mode Voltage Comparison](#common-mode-voltage-comparison)
+  - [Proteus Result (With Hysteresis Current Control)](#proteus-result-with-hysteresis-current-control)
+  - [Hardware Result (With SPWM Modulation)](#hardware-result-with-spwm-modulation)
+- [Future Recommendation](#future-recommendation)
+- [References](#references)
+- [ANNEXES](#annexes)
+  - [Mosfet Driver Circuit (Version 1)](#mosfet-driver-circuit-version-1)
+  - [Mosfet Driver Circuit (Version 2)](#mosfet-driver-circuit-version-2)
+  - [Double Layered PCB Design V3](#double-layered-pcb-design-v3)
+  - [Whole Hardware in Nutshell](#whole-hardware-in-nutshell)
 
 ---
 
@@ -157,8 +185,11 @@ In this mode
 - DC side is decoupled from Freewheeling side.
 - Lower diode clamps VBN  to VDC/2
 - Magnetic field stored in the inductor collapses through switch S1 and FD D3 
-- Applying KVL we obtain  
-         $V_{CM} = /frac{V_{DC}}{2}$
+- Applying KVL we obtain
+
+$$
+V_{CM} = \frac{V_{DC}}{2}
+$$
 
 #### MODE 3 
 ![image](https://github.com/user-attachments/assets/b549ef09-61d8-4ce2-8a80-144c1432e505)
@@ -166,7 +197,7 @@ In this mode
 
 In this mode, negative voltage is transferred when:
 
-- $V_{AN} = 0 /text{and}  V_{BN} = V_{DC}$
+- $V_{AN} = 0 , V_{BN} = V_{DC}$
 - $V_{CM} = V_{DC} / 2$
 
 #### MODE 4 ( Freewheeling )
@@ -230,25 +261,10 @@ $$
 ![image](https://github.com/user-attachments/assets/9f3a32d4-de1c-4002-b06b-e18e4661a74c)
 
 ### SPWM Methodology ( Hardware Design)
-![image](https://github.com/user-attachments/assets/1456324f-9adb-448e-998a-4dd3a89d08a6)
+![image](https://github.com/user-attachments/assets/a4db6d17-0c96-4cb4-aca1-f482c050fb94)
 
 ### Microcontroller-1 Flowchart
-
-```mermaid
-flowhcart TD
-    start((START))
-    check[Check Boost Converter<br>Output Voltage (Vout)]
-    decision{Vout > Vset}
-    increase[Increase Duty Cycle<br>Of PWM]
-    decrease[Decrease Duty Cycle<br>Of PWM]
-
-    start --> check
-    check --> decision
-    decision -- Yes --> decrease
-    decision -- No --> increase
-    increase --> check
-    decrease --> check
-```
+![image](https://github.com/user-attachments/assets/c619ff78-a021-4670-9620-a5efedc36599)
 
 ### Microcontroller-2 Flowchart
 ![image](https://github.com/user-attachments/assets/6dfd897a-4db5-40b1-9d1e-d86a836bc10d)
