@@ -327,9 +327,8 @@ Proteus Software is used for simulation. The expected result was obtained after 
 ## Simulation Results And Discussion
 
 The max power the solar panel produces is around 2020 Watt. The reference value for the DC link voltage is set to 400V
+![image](https://github.com/user-attachments/assets/02c8094f-0419-4676-bd34-b3ff596a13d9)
 
-![Power delivered from proposed H5 inverter](./images/image19.png)  
-![DC link voltage](./images/image20.png)
 
 ---
 
@@ -345,7 +344,8 @@ The max power the solar panel produces is around 2020 Watt. The reference value 
 | Current injected to grid            | 8.558 A (RMS)  |
 | Efficiency                          | 93.56          |
 
-![Injected grid current using HBCC](./images/image21.png)
+![image](https://github.com/user-attachments/assets/bfb7b885-63c8-443c-b490-47b3ab876ab1)
+
 
 ---
 
@@ -353,25 +353,27 @@ The max power the solar panel produces is around 2020 Watt. The reference value 
 
 The common mode voltage in H4 unipolar fluctuates from 400 to 0 volts, resulting in large leakage current. If we observe the common mode voltage for the H5 topology, the VCM is almost constant with little spike fluctuation and the steady value sits around 200V.
 
-![Magnified CM voltage in H4](./images/image22.png)  
-![Magnified CM voltage in proposed H5](./images/image23.png)
+![image](https://github.com/user-attachments/assets/5c287457-3028-462c-a115-8f4a73f2f2b0)
+
 
 Due to the reduction in magnitude of CMV and its rate of fluctuation, the leakage current is suppressed.
+
+![image](https://github.com/user-attachments/assets/3b368809-2c5e-43ee-8aca-6432de160f7b)
+
 
 | **Topology**                    | **Leakage Current (RMS)** |
 |---------------------------------|---------------------------|
 | H4 with unipolar modulation     | 285 mA                    |
 | H5                              | 1.35 mA                   |
 
-![Leakage current in standard H4 bridge](./images/image24.png)  
-![Leakage current in proposed H5 inverter](./images/image25.png)
+ 
 
 ---
 
 ### Proteus Result (With Hysteresis Current Control)
 
-![Waveform of CMV](./images/image26.png)  
-![Waveform of Output Current](./images/image27.png)
+![image](https://github.com/user-attachments/assets/b320d0d8-350d-436c-a108-e1ef1ad93de1)
+
 
 Some spikes due to switching of inverter. Constant CMV was obtained ensuring zero leakage current. Output inverter current and grid voltage are in phase ensuring unity power factor.
 
@@ -379,15 +381,15 @@ Some spikes due to switching of inverter. Constant CMV was obtained ensuring zer
 
 ### Hardware Result (With SPWM Modulation)
 
-![Various output waveforms of the inverter](./images/image28.png)
+![image](https://github.com/user-attachments/assets/fa9f0455-d114-4407-b9f2-665868d3d72a)
+
+![image](https://github.com/user-attachments/assets/4b4b5b5e-75e0-4764-af62-b02c8832e3e0)
 
 ---
 
 ## Future Recommendation
 
-- Inject the power to the grid using a larger wattage solar
-
- panel and with proper protection circuit.
+- Inject the power to the grid using a larger wattage solar panel and with proper protection circuit.
 - IR2110 (Mosfet Driver IC) available in Nepal were of cheap quality, resulting in blowing out. So using mosfet driver imported from a good company is recommended.
 
 ---
@@ -400,5 +402,29 @@ Some spikes due to switching of inverter. Constant CMV was obtained ensuring zer
 4. **M. Victor, F. Greizer, S. Bremicker, and U. Hubler, “Method of Converting a Direct Current Voltage from a Source of Direct Current Voltage, More Specifically From A Photovoltaic Source Of Direct Current Voltage, Into an Alternating Current Voltage,” U.S. Patent 7411802, Aug. 12, 2008.**
 5. **Frede Blaabjerg, Remus Teodorescu, Marco Liserre, Adrian V. Timbus “Overview of Control and Grid Synchronization for Distributed Power Generation Systems”, IEEE Transactions on Industrial Electronics, Vol. 53, No. 5, October 2006.**
 
+## ANNEXES
+
+### Mosfet Driver Circuit (Version 1)
+Version 1 represents circuit design in matrix board with external wiring
+![image](https://github.com/user-attachments/assets/d926d720-b97f-497e-be62-98264204ee35)  
+Due to some problems with bootstrap capacitor, we switched to version 2 
+
+### Mosfet Driver Circuit (Version 2)
+Version 2 represents single layer PCB design of  circuit involving external wiring 
+![image](https://github.com/user-attachments/assets/2069cdd6-ed79-4d94-8be6-01d7cc7dccfe)  
+Still this version has problems related to common ground due to wiring problems
+
+### Double Layered PCB Design V3
+![image](https://github.com/user-attachments/assets/dfc19983-5ee2-4fcf-a425-9bda3ba0fe6a)
+
+FeCL3 was used for etching the PCB. 
+
+![image](https://github.com/user-attachments/assets/4ad65fc8-130c-41bd-a8c0-6057df75e817)
+
+
+### Whole Hardware in Nutshell   
+![image](https://github.com/user-attachments/assets/c3de7c14-0020-4d62-a4e8-26a1a27f1aa4)
+
+![image](https://github.com/user-attachments/assets/04c04a63-0f58-442c-abf1-ef8559820bb5)
 
 
